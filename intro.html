@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        body {
+            background-color: #d3c3e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .intro-container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: black;
+        }
+        .intro-button {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: relative;
+            transition: transform 0.3s ease, background-color 0.2s;
+        }
+        .intro-button:hover {
+            background-color: #306fbf;
+        }
+        /* Lively animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-container">
+        <h1>hello lu ?</h1>
+        <button class="intro-button" id="moveButton">click me!</button>
+    </div>
+
+    <script>
+        const button = document.getElementById('moveButton');
+        let moveCount = 0;
+        const maxMoves = 3;
+
+        // Function to apply lively bounce animation
+        const bounceButton = () => {
+            button.style.animation = 'bounce 0.5s ease';
+            setTimeout(() => {
+                button.style.animation = '';
+            }, 500); // Reset animation after 0.5s
+        };
+
+        button.addEventListener('mouseover', () => {
+            if (moveCount < maxMoves) {
+                // Generate random positions
+                const randomX = Math.floor(Math.random() * (window.innerWidth - button.offsetWidth));
+                const randomY = Math.floor(Math.random() * (window.innerHeight - button.offsetHeight));
+
+                // Smoothly move the button to the new position
+                button.style.position = 'absolute';
+                button.style.transition = 'left 0.5s ease, top 0.5s ease';
+                button.style.left = `${randomX}px`;
+                button.style.top = `${randomY}px`;
+
+                // Add bounce animation
+                bounceButton();
+                moveCount++;
+            } else {
+                button.style.pointerEvents = 'auto'; // Enable button interaction after 3 moves
+            }
+        });
+
+        button.addEventListener('click', () => {
+            window.location.href = 'index.html'; // Redirect to the main page
+        });
+    </script>
+</body>
+</html>
